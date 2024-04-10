@@ -18,11 +18,12 @@ jobs:
             distribution: temurin
             java-version: 17
             cache: gradle
-        - name: Build, unit tests and integration tests
-          run: |
-            chmod +x gradlew
-            ./gradlew build
-            echo ${{ github.workspace }}
+        - name: Change wrapper permissions
+          run: chmod +x ./gradlew
+        - name: Build with Gradle (Build, unit tests and integration tests)
+          run: ./gradlew build
+        - name: Document environment
+          run:  echo ${{ github.workspace }}
             ls -la ${{ github.workspace }}
         - name: Code vulnerability scanning
           uses: anchore/scan-action@v3
